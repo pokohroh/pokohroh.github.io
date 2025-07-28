@@ -18,7 +18,7 @@ main-image: /limo_robot.jpg
 ## Changi Airport Arena Design
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
   {% include image-gallery.html 
-     images="/assets/images/changi_1.jpeg, /assets/images/changi_2.jpg" 
+     images="/changi_1.jpeg, /changi_2.jpg" 
      height="350" 
   %}
 </div><br>
