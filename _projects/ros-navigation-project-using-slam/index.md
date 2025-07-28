@@ -16,23 +16,162 @@ main-image: /limo_robot.jpg
 ---
 
 ## Changi Airport Arena Design
-{% include image-gallery.html images="changi_1.jpeg" height="400" %} 
-{% include image-gallery.html images="changi_2.jpg" height="400" %} 
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+  {% include image-gallery.html 
+     images="/changi_1.jpeg, /changi_2.jpg" 
+     height="350" 
+  %}
+</div><br>
 We worked on building the layout on Changi Airport Terminal 1. To make it as similar and realistic as possible, we have made sure to include major areas like check-in areas, departure areas, etc, and we have recreated recognizable features like the iconic Kinetic Rain as well. This was to create environment where the robot could map the area using RTAB-Map SLAM and move between waypoints while avoiding obstacles using the move_base navigation stack, simulating autonomous navigation in Changi Airport.
 
-
-### Initial Arena Design
-{% include image-gallery.html images="Initial_design_plan.jpg" height="400" %} 
-{% include image-gallery.html images="arena_cad.jpg" height="400" %} 
-
+<br>
+### **Initial Arena Design**
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+  {% include image-gallery.html 
+     images="/Initial_design_plan.jpg, /arena_cad.jpg" 
+     height="350" 
+  %}
+</div> <br>
 Our team initially planned for a more complex design that included two levels, ramps, and gantries. However, we have decided to improve on it and simplify the design.
+<br>
 
-### Final Arena Design
+### **Final Arena Design**
+<br>
 {% include image-gallery.html images="arena_cad.png" height="800" %} 
+<br>
+<div class="arena-slideshow-container">
 
+{% include image-gallery.html 
+   images="/1.jpg, /2.jpg, /3.jpg""
+   height="550"
+   mode="slideshow"
+   captions="1|2|3"
+%}
+</div>
+<br>
 This is the final CAD design of the arena, and we have started on building it with various materials. Materials for each components were carefully decided based on feasibility and budget.
 
+---
+## Mapping the Class Arena
+The project required us to design an arena that not only allowed our LIMO robot to navigate through our team’s plot but also to move seamlessly across other teams’ plots. The robot needed to be able to pass through the central point of each plot in the class’s combined arena while navigating around the various obstacles placed within each area.
 
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+  {% include image-gallery.html 
+     images="/assets/images/Class_arena.jpg" 
+     height="450" 
+  %}
+</div>
+
+### **Using RTAB-Mapping** 
+We chose RTAB-Map instead of alternatives like Cartographer or Gmapping because it is able to localize the robot automatically in the map without us having to manually figure out where it is each time. RTAB-Map also works well with ROS 1 (Melodic) and can handle larger environments accurately, which was important for mapping the entire class arena with multiple obstacles and plots.
+
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+  {% include image-gallery.html 
+     images="/assets/images/completed_map.jpg, /assets/images/completed_map_navigation.jpg" 
+     height="400" 
+  %}
+</div>
+Using RTAB-Map, we were able to map the entire class arena, which included all the teams’ plots combined into one large environment. The mapping process allowed the LIMO robot to build a detailed 2D/3D representation of the arena in real time while it navigated through each plot. This map served as the foundation for waypoint navigation and obstacle avoidance, as the robot relied on it to localize itself and plan efficient paths. The results of the mapping can be seen in the images above, visualized using the RViz tool in ROS.
+
+---
+
+## Navigation Code Implementation
+
+### **Core Architecture**
+```python
+class WaypointNavigator:
+    def __init__(self):
+        rospy.init_node('waypoint_navigator')
+        self.client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
+```
+---
+### **Framework Components:**
+
+ - move_base action server for global & local path planning
+ - TF transforms for map-based coordinate handling
+ - Actionlib to send and track navigation goals one by one
+
+**1. Waypoint Management**
+```python
+self.plot_paths = {
+    "Plot1": [{"x": "1.378", "y": "1.427", "yaw": "0.567"}],
+    # ... 8 predefined plots ...
+    "Plot0": [{"x": "0.0", "y": "0.0", "yaw": "0.0"}]  # Home
+}
+```
+**What this does:**
+
+ - We store predefined coordinates (x, y, yaw) for each plot.
+ - Plot0 is the home location, and the others represent specific waypoints around the arena.
+ - Plot 0 is the center plot of the entire arena , it is the starting point for the Limo Robot before navigating to other plots.
+ - Yaw values are stored as radians (rotation) so the robot faces the correct direction when it reaches each point.
+
+**2.User input handling**
+```python
+selection = raw_input("Enter your plot sequence (e.g. 134, 1 3 4): ")
+selected_plots = re.findall(r'\b[0-9]\b', selection)
+```
+**How it works:**
+
+ - The user can type multiple waypoints at once (e.g., 1 3 4 or 134).
+ - We use a small regex (re.findall) to clean up the input and only keep valid numbers between 0 and 9.
+ - It makes the robot more flexible since you can plan multi-stop routes in one go.
+
+**3. Navigation Control**
+```python
+for plot_num in selected_plots:
+    plot_key = "Plot{}".format(plot_num)
+    self.navigate_to(self.current_location, plot_key)
+    self.current_location = plot_key
+
+```
+**What this does:**
+
+ - Loops through each selected waypoint in order.
+ - Calls navigate_to() to send a navigation goal for each plot.
+ - Updates current_location so the robot knows where it’s coming from next.
+
+   
+**4. Waypoint Execution**
+```python
+def navigate_to(self, from_plot, to_plot):
+    path = self.plot_paths[to_plot]
+    for wp in path:
+        goal = self.create_goal(wp["x"], wp["y"], wp["yaw"])
+        self.client.send_goal(goal)
+        self.client.wait_for_result()
+```
+**How it works:**
+
+ - Converts the coordinates into a ROS navigation goal.
+ - Waits for the robot to finish moving before sending the next goal (so it doesn’t skip).
+ - Retries up to 10 times if it fails (e.g., if there’s an obstacle in the way).
+
+**5. Fault Recovery**
+```python
+if state != actionlib.GoalStatus.SUCCEEDED:
+    self.clear_costmaps()  # Clear obstacles from costmaps
+    self.client.send_goal(goal)  # Retry the goal
+```
+ - If a goal fails, we clear the costmaps to reset any temporary obstacle data.
+ - Then we retry the same goal up to 10 times before skipping it.
+ - This makes the robot more robust when navigating in changing environments.
+   
+
+**6. Goal Creation**
+```python
+def create_goal(self, x, y, yaw):
+    goal = MoveBaseGoal()
+    goal.target_pose.header.frame_id = "map"
+    q = quaternion_from_euler(0, 0, float(yaw))
+
+```
+**How it works:**
+
+ - Converts (x, y, yaw) into a proper ROS navigation goal in the map frame.
+ - Uses quaternion_from_euler to get the correct orientation so the robot faces the right way when it arrives.
+
+---
 
 
 
@@ -40,68 +179,3 @@ This is the final CAD design of the arena, and we have started on building it wi
 {% include youtube-video.html id="kO21XZkHZq8" autoplay= "false" width= "900px" %}
 
 
-
-<br>
-
-## Adding a hozontal line
----
-
-## Starting a new line
-leave two spaces "  " at the end or enter <br>
-
-## Adding bold text
-this is how you input **bold text**
-
-## Adding italic text
-Italicized text is the *cat's meow*.
-
-## Adding ordered list
-1. First item
-2. Second item
-3. Third item
-4. Fourth item
-
-## Adding unordered list
-- First item
-- Second item
-- Third item
-- Fourth item
-
-## Adding code block
-```ruby
-def hello_world
-  puts "Hello, World!"
-end
-```
-
-```python
-def start()
-  print("time to start!")
-```
-
-```javascript
-let x = 1;
-if (x === 1) {
-  let x = 2;
-  console.log(x);
-}
-console.log(x);
-
-```
-
-## Adding external links
-[Wikipedia](https://en.wikipedia.org)
-
-
-## Adding block quote
-> A blockquote would look great if you need to highlight something
-
-
-## Adding table 
-
-| Header 1 | Header 2 |
-|----------|----------|
-| Row 1, Col 1 | Row 1, Col 2 |
-| Row 2, Col 1 | Row 2, Col 2 |
-
-make sure to leave aline betwen the table and the header
