@@ -28,7 +28,7 @@ We worked on building the layout on Changi Airport Terminal 1. To make it as sim
 ### **Initial Arena Design**
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
   {% include image-gallery.html 
-     images="/assets/images/Initial_design_plan.jpg, /assets/images/arena_cad.jpg" 
+     images="/Initial_design_plan.jpg, /arena_cad.jpg" 
      height="350" 
   %}
 </div> <br>
@@ -42,7 +42,7 @@ Our team initially planned for a more complex design that included two levels, r
 <div class="arena-slideshow-container">
 
 {% include image-gallery.html 
-   images="/assets/images/1.jpg, /assets/images/2.jpg, /assets/images/3.jpg"
+   images="/1.jpg, /2.jpg, /3.jpg"
    height="550"
    mode="slideshow"
    captions="1|2|3"
@@ -57,7 +57,7 @@ The project required us to design an arena that not only allowed our LIMO robot 
 
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
   {% include image-gallery.html 
-     images="/assets/images/Class_arena.jpg" 
+     images="/Class_arena.jpg" 
      height="450" 
   %}
 </div>
@@ -67,7 +67,7 @@ We chose RTAB-Map instead of alternatives like Cartographer or Gmapping because 
 
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
   {% include image-gallery.html 
-     images="/assets/images/completed_map.jpg, /assets/images/completed_map_navigation.jpg" 
+     images="/completed_map.jpg, /completed_map_navigation.jpg" 
      height="400" 
   %}
 </div>
