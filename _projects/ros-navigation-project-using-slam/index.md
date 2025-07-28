@@ -42,7 +42,7 @@ Our team initially planned for a more complex design that included two levels, r
 <div class="arena-slideshow-container">
 
 {% include image-gallery.html 
-   images="/assets/images/1.jpg, /assets/images/2.jpg, /assets/images/3.jpg""
+   images="/assets/images/1.jpg, /assets/images/2.jpg, /assets/images/3.jpg"
    height="550"
    mode="slideshow"
    captions="1|2|3"
