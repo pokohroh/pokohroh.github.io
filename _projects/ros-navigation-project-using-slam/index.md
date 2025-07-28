@@ -10,7 +10,7 @@ skills:
   - RViz
   - Path-planning
   - LiDAR & Depth Camera Data Processing
-main-image: /limo_robot.jpg
+main-image: /limo_robot.webp
 ---
 
 ---
@@ -32,7 +32,8 @@ We worked on building the layout on Changi Airport Terminal 1. To make it as sim
      height="350" 
   %}
 </div> <br>
-Our team initially planned for a more complex design that included two levels, ramps, and gantries. However, we have decided to improve on it and simplify the design.
+{% include image-gallery.html images="limo.webp" height="500" %} 
+We have made use of systems approach to design the arena, making sure that the dimensions of the limo robot is considered. Robot has to be able to maneuver around with ample space without physically htting the walls. Also other requirements included that robot has to pass the center of the map. Hence our team initially came up with a design that included two levels, ramps, and two autogataes. However, we have decided to improve on it and simplify the design to single level due to feasibility and resource contstraints.
 <br>
 
 ### **Final Arena Design**
