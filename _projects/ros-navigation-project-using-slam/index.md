@@ -51,8 +51,10 @@ Our team initially planned for a more complex design that included two levels, r
 <br>
 This is the final CAD design of the arena, and we have started on building it with various materials. Materials for each components were carefully decided based on feasibility and budget.
 
-I have also worked on building the autogate to simulate the autogate installed at the entrance of the departure area in Changi airport. The autogate built will automatically open when it detects the robot approaching nearby using two ultrasonic sensor. Depending the direction in which the robot is coming from, the autogate will move away from the robot. It was programmed using Arduino Uno.
 {% include image-gallery.html images="/4.jpg" height="600" %} 
+
+I have also worked on building the autogate to simulate the autogate installed at the entrance of the departure area in Changi airport. The autogate built will automatically open when it detects the robot approaching nearby using two ultrasonic sensor. Depending the direction in which the robot is coming from, the autogate will move away from the robot. It was programmed using Arduino Uno.
+
 
 ---
 ## Mapping the Class Arena
