@@ -17,8 +17,8 @@ headline: Welcome to my portfolio!
 description: >- # dont remove this line. this will ignore all new lines until the next section
   Welcome to my portfolio, where I showcase a selection of projects developed during my undergraduate studies in Robotic Systems at the Singapore Institute of Technology (SIT). 
   These projects demonstrate my growth and hands-on experience in key areas of robotics, including autonomous navigation, path-planning algorithms, sensor fusion, and robot arena design.
-
-   
+  <br>
+  
   A significant portion of my work was built on the Robot Operating System (ROS), which I used extensively for robot control, system integration, and simulation. 
   Each project reflects a deep integration of theory and application, emphasizing system-level thinking, iterative design, and real-world implementation.
   This portfolio is a testament to my capability in designing, programming, and deploying intelligent robotic systems using modern robotics frameworks and methodologies.
