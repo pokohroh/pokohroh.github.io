@@ -18,7 +18,7 @@ main-image: /limo_robot.jpg
 ## Changi Airport Arena Design
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
   {% include image-gallery.html 
-     images="/changi_1.jpeg, /changi_2.jpg" 
+     images="/assets/images/changi_1.jpeg, /assets/images/changi_2.jpg" 
      height="350" 
   %}
 </div><br>
@@ -28,7 +28,7 @@ We worked on building the layout on Changi Airport Terminal 1. To make it as sim
 ### **Initial Arena Design**
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
   {% include image-gallery.html 
-     images="/Initial_design_plan.jpg, /arena_cad.jpg" 
+     images="/assets/images/Initial_design_plan.jpg, /assets/images/arena_cad.jpg" 
      height="350" 
   %}
 </div> <br>
@@ -42,7 +42,7 @@ Our team initially planned for a more complex design that included two levels, r
 <div class="arena-slideshow-container">
 
 {% include image-gallery.html 
-   images="/1.jpg, /2.jpg, /3.jpg""
+   images="/assets/images/1.jpg, /assets/images/2.jpg, /assets/images/3.jpg""
    height="550"
    mode="slideshow"
    captions="1|2|3"
