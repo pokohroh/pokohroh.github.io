@@ -58,8 +58,8 @@ I have also worked on building the autogate to simulate the autogate installed a
 
 
 ---
-## Mapping the Class Arena
-The project required us to design an arena that not only allowed our LIMO robot to navigate through our team’s plot but also to move seamlessly across other teams’ plots. The robot needed to be able to pass through the central point of each plot in the class’s combined arena while navigating around the various obstacles placed within each area.
+## Mapping the Entire Arena
+While we were tasked on building the Changi Airport Terminal 1, other teams worked on other parts of Changi Airport. Together, we built a seemless arena of Changi Airport where our Limo robots will be tasked to navigate through all of the plots autonomously.
 
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
   {% include image-gallery.html 
@@ -69,7 +69,14 @@ The project required us to design an arena that not only allowed our LIMO robot 
 </div>
 
 ### **Using RTAB-Mapping** 
-We chose RTAB-Map instead of alternatives like Cartographer or Gmapping because it is able to localize the robot automatically in the map without us having to manually figure out where it is each time. RTAB-Map also works well with ROS 1 (Melodic) and can handle larger environments accurately, which was important for mapping the entire class arena with multiple obstacles and plots.
+Our team selected RTAB-Map over alternatives like GMapping and Cartographer due to its robust ability to automatically localize the robot within a previously built map, eliminating the need to manually set the initial pose each time. RTAB-Map integrates well with ROS 1 (Melodic) and supports large, complex environments—an essential feature for mapping our full classroom arena, which combined multiple teams’ plots into one shared space. During implementation with the LIMO robot, we launched the following workflow:
+
+```bash
+roslaunch limo_bringup limo_start.launch
+roslaunch dabai_u3.launch
+roslaunch limo_rtabmap_orbbec.launch
+roslaunch rtabmap_rviz.launch
+```
 
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
   {% include image-gallery.html 
@@ -77,7 +84,7 @@ We chose RTAB-Map instead of alternatives like Cartographer or Gmapping because 
      height="400" 
   %}
 </div>
-Using RTAB-Map, we were able to map the entire class arena, which included all the teams’ plots combined into one large environment. The mapping process allowed the LIMO robot to build a detailed 2D/3D representation of the arena in real time while it navigated through each plot. This map served as the foundation for waypoint navigation and obstacle avoidance, as the robot relied on it to localize itself and plan efficient paths. The results of the mapping can be seen in the images above, visualized using the RViz tool in ROS.
+This setup enabled real-time 2D/3D mapping using data from the Orbbec camera, allowing the robot to navigate through the arena while building a detailed and scalable environment map. The resulting map served as the backbone for waypoint navigation and obstacle avoidance, enabling the LIMO robot to plan efficient paths and localize itself reliably. The final mapping results were visualized using RViz, showcasing the effectiveness of RTAB-Map in dynamic, obstacle-rich environments.
 
 ---
 
