@@ -62,8 +62,8 @@ skills:
     tools:
     - Build AI models with Tensorflow
     - Objection classification and detection
-   - category: Micro-controller
-     tools:
+  - category: Micro-controller
+    tools:
     - Arduino
     - Raspberry Pi
     - Jetson Nano
