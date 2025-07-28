@@ -43,7 +43,7 @@ Our team initially planned for a more complex design that included two levels, r
 
 {% include image-gallery.html 
    images="/1.jpg, /2.jpg, /3.jpg"
-   hiehgt="650"
+   height="650"
    mode="slideshow"
    captions="1|2|3"
 %}
