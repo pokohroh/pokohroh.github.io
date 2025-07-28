@@ -13,13 +13,12 @@ title: Kim Hyeong Hu's Portfolio # This is what shows up in the tab of the brows
 
 # Hero Section
 name: Kim Hyeong Hu
-headline: headline message
+headline: Welcome to my portfolio!
 description: >- # dont remove this line. this will ignore all new lines until the next section
   Welcome to my portfolio, where I showcase a selection of projects developed during my undergraduate studies in Robotic Systems at the Singapore Institute of Technology (SIT). 
   These projects demonstrate my growth and hands-on experience in key areas of robotics, including autonomous navigation, path-planning algorithms, sensor fusion, and robot arena design.
 
   A significant portion of my work was built on the Robot Operating System (ROS), which I used extensively for robot control, system integration, and simulation. 
-  I worked with tools such as Gazebo for simulation, RViz for visualization, and implemented ROS nodes for tasks like SLAM (Simultaneous Localization and Mapping), obstacle avoidance, and waypoint navigation. 
   Each project reflects a deep integration of theory and application, emphasizing system-level thinking, iterative design, and real-world implementation.
   This portfolio is a testament to my capability in designing, programming, and deploying intelligent robotic systems using modern robotics frameworks and methodologies.
 
@@ -35,12 +34,21 @@ resume-url: https://drive.google.com/file/d/13Z3duVzh-gguPU5r03oJVEE6rV9rd3DS/vi
 # Set up external links - this will show up as small icons next to your name.
 
 external-links:    # input only your own url slug. The icons with missing entries will not appear.
-  linkedin: test    # https://www.linkedin.com/in/{your url slug} 
-  github: leea12    # https://github.com/{your url slug} 
+  linkedin: https://www.linkedin.com/in/hyeong-hu-kim-424b94254
+  github: https://github.com/pokohroh
   
 
 # Skills Section - Add the list of your Skills by categories/tools. The indentation for each level needs to be precise. 
 skills:
+  - category: Programming
+    tools:
+    - C
+    - C++
+    - Python
+    - Javascript
+    - Swift
+    - C#
+    - Kotlin
   - category: 3D Modeling
     tools:
     - Solidworks
@@ -49,19 +57,25 @@ skills:
     tools:
     - 3D Printing
     - Laser Cutting
-    - Arduino / Raspberry Pi
     - Breadboarding for circuit testing
-  - category: Design Standards / Practices
+  - category: AI
     tools:
-    - GD&T ASME Y14
-    - ISO fits and tolerances
-    - PLM (PTC Windchill / Arena)   
-  - category: Problem Solving / Risk Management
+    - Build AI models with Tensorflow
+    - Objection classification and detection
+   - category: Micro-controller
     tools:
-    - Root Cause Analysis (e.g., 5 Whys, Fishbone Diagram)
-    - DFMEA / PFMEA 
-    - Six Sigma methodologies
-    - Shain Red-X
+    - Arduino
+    - Raspberry Pi
+    - Jetson Nano
+    - Propeller 1
+  - category: Robot Operating System (ROS)
+    tools:
+    - ROS 1 
+    - SLAM (Simultaneous Localization and Mapping
+    - move_base for autonomous navigation
+    - Costmap configuration (local & global)
+    - Sensor integration ( LIDAR, depth cameras such as Orbbec)
+    - RViz
 
 
 # Contact Form Setup. Setup an account and copy over the key. When someone fills out the form, it will be received in your email.
